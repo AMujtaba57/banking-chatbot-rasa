@@ -1,0 +1,30 @@
+<!--Login-->
+{% if user.is_authenticated %}
+<div class="container py-5">
+        <script>
+!(function () {
+  let e = document.createElement("script"),
+    t = document.head || document.getElementsByTagName("head")[0];
+  (e.src =
+    "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.1/lib/index.js"),
+    // Replace 1.x.x with the version that you want
+    (e.async = !0),
+    (e.onload = () => {
+      window.WebChat.default(
+        {
+          customData: { language: "en" , sender_id:"{{ user }}" ,csrfmw:"{{ csrf_token }}",csrf:"{{ request.COOKIES.csrftoken }}",sessionid:"{{ request.COOKIES.sessionid }}" },
+          socketUrl: "http://localhost:5005/",
+          initPayload: "/greet",
+          title:"Banking Bot",
+          params:{ storage: "local" },
+
+          // add other props here
+        },
+        null
+      );
+    }),
+    t.insertBefore(e, t.firstChild);
+})();
+</script>
+</div>
+{% endif %}

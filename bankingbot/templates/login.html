@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block head_extra %}
+
+{% load static %}
+<link href="{% static 'assets/fontawesome-all.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/iofrm-style.css' %}" rel="stylesheet">
+<link href="{% static 'assets/iofrm-theme18.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+<!--Login-->
+
+    <div class="form-body without-side">
+        <div class="row">
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h1>Log In</h1>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ login_form|crispy }}
+                            <button class="btn btn-primary" type="submit">Login</button>
+                        </form><br>
+                        <p class="text-center">If you don't already have an account, <a href="/register">Register</a> instead.</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer_extra %}
+
+{% load static %}
+<script src="{% static 'assets/main.js' %}"></script>
+
+{% endblock %}

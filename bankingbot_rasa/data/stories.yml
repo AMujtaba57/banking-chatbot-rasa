@@ -1,0 +1,53 @@
+version: "2.0"
+
+stories:
+
+- story: greet
+  steps:
+  - intent: greet
+  - action: action_greet
+`
+- story: transaction
+  steps:
+    - intent: make_transaction
+    - action: action_make_transaction
+
+- story: show balance
+  steps:
+    - intent: show_balance
+    - action: action_show_balance
+
+- story: show account details
+  steps:
+    - intent: show_account_detail
+    - action: action_account_detail
+
+- story: lost card yes
+  steps:
+    - intent: card_lost
+    - action: utter_sorry_card
+    - action: utter_suspend_card
+    - intent: affirm
+    - action: utter_when_card
+    - intent: time_cardlost
+    - action: utter_where_card
+    - intent: city_cardlost
+    - action: utter_sucess_card
+
+- story: lost card no
+  steps:
+    - intent: card_lost
+    - action: utter_sorry_card
+    - action: utter_suspend_card
+    - intent: deny
+    - action: utter_goodbye
+
+- story: show statement
+  steps:
+    - intent: mini_statement
+    - action: utter_history
+
+- story: get loan
+  steps:
+    - intent: loan_statement
+    - action: utter_loan

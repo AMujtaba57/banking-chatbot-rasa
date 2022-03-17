@@ -1,0 +1,166 @@
+version: "2.0"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - good afternoon
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+    - reset
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+
+- intent: make_transaction
+  examples: |
+    - i want to take out money
+    - i want to [withdraw](transaction-type) some funds
+    - i want to [withdraw](transaction-type) [1000](amount-of-money) rs
+    - i want to [withdraw](transaction-type) [113651](amount-of-money)
+    - i want to [withdraw](transaction-type) [312](amount-of-money)
+    - [withdraw](transaction-type)
+    - i want to [deposit](transaction-type) some funds
+    - i want to [deposit](transaction-type) [1000](amount-of-money) rs
+    - i want to [deposit](transaction-type) [113651](amount-of-money)
+    - i want to [deposit](transaction-type) [312](amount-of-money)
+    - [deposit](transaction-type)
+    - i want to [withdraw](transaction-type) some money
+    - i would like to [withdraw](transaction-type) [1000](amount-of-money) rs
+    - i would like to [withdraw](transaction-type) [113651](amount-of-money)
+    - i would like to [withdraw](transaction-type) [312](amount-of-money)
+    - [withdraw](transaction-type) [88](amount-of-money)
+    - i would like to [deposit](transaction-type) some money
+    - i would like to [deposit](transaction-type) [1000](amount-of-money) rs
+    - i would like to [deposit](transaction-type) [113651](amount-of-money)
+    - i would like to [deposit](transaction-type) [312](amount-of-money)
+    - [deposit](transaction-type) [2456](amount-of-money)
+    - [1000](amount-of-money)
+    - [9](amount-of-money)
+    - [8356](amount-of-money)
+    - i want some money
+    - i want to make a transaction
+    - i would like to make a transaction
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+
+- intent: show_balance
+  examples: |
+    - what is my balance
+    - what do i have
+    - how much i have in bank
+    - how much money do i have
+    - money
+    - show me my money
+    - my current balance
+    - my money
+
+- intent: show_account_detail
+  examples: |
+    - what is my account number
+    - my account details
+    - my profile
+    - my account
+    - my name
+    - details
+    - what is my inodrmation
+    - show me my account details
+
+- intent: mini_statement
+  examples: |
+    - history
+    - my last transacti on
+    - show me my transactions
+    - where id my money go
+    - what is my activity
+    - what did i do with my money
+    - statement
+    - last statement
+    - mini statement
+
+- intent: loan_statement
+  examples: |
+    - i want to take out the loan
+    - loan
+    - i want loan
+    - loan policy
+    - what is your loan policy
+    - how do i take out loan
+
+- intent: card_lost
+  examples: |
+    - i want to cancle my credit card
+    - i lost my card
+    - my card is stolen
+    - i droped my card
+    - cancel my card
+
+- intent: city_cardlost
+  examples: |
+    - quetta
+    - karachi
+    - islamabad
+    - lahore
+    - london
+    - rawalpindi
+    - russina
+    - faisalabad
+    - i lost my card in quetta
+    - my card is stolen in karachi
+    - i droped my card at london
+
+- intent: time_cardlost
+  examples: |
+    - today
+    - tomorrow
+    - 2 dec
+    - yesterday
+    - 10:00 pm
+    - 9:00 am
+    - i lost my card today
+    - my card was stolen tomorrow
+    - i droped my card yesterday
