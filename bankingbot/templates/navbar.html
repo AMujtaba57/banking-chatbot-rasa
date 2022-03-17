@@ -1,0 +1,41 @@
+{% block head_extra %}
+{% load static %}
+<link href="{% static 'assets/headers.css' %}" rel="stylesheet">
+<style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+</style>
+{% endblock %}
+
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <span class="fs-4">Banking Bot</span>
+        </a>
+
+        {% if user.is_authenticated %}
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="/home" class="nav-link px-2 link-dark">Home</a></li>
+            <li><a href="/history" class="nav-link px-2 link-dark">History</a></li>
+            <li><a href="/make-transaction" class="nav-link px-2 link-dark">Withdrawal / Deposit</a></li>
+            <li><a href="/logout" class="nav-link px-2 link-dark">Logout</a></li>
+        </ul>
+        {% else %}
+        <div class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="/login" class="nav-link px-2 link-dark">Login</a></li>
+            <li><a href="/register" class="nav-link px-2 link-dark">Sign up</a></li>
+        </div>
+        {% endif %}
+    </header>
+</div>

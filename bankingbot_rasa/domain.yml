@@ -1,0 +1,113 @@
+version: "2.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - bot_challenge
+  - make_transaction:
+      use_entities:
+      - amount-of-money
+      - transaction-type
+  - show_balance
+  - show_account_detail
+  - mini_statement
+  - loan_statement
+  - card_lost
+  - city_cardlost
+  - time_cardlost
+
+entities:
+  - amount-of-money
+  - transaction-type
+
+slots:
+  amount-of-money:
+    type: float
+    influence_conversation: false
+
+  user:
+    type: any
+    influence_conversation: false
+
+  transaction-type:
+    type: text
+    influence_conversation: false
+
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_sorry_card:
+  - text: "I am sorry to hear that. I will help you suspend your lost card."
+
+  utter_suspend_card:
+  - text: "would you like me to suspend your Card at this time?"
+
+  utter_when_card:
+  - text: "When did you lose your Card?"
+
+  utter_where_card:
+  - text: "Which city did you lose your Card in?"
+
+  utter_sucess_card:
+  - text: "Thanks. Your Access Card is suspended now.
+             Please note:
+             You will not be able to access online banking services until you receive your new card or find your old card within 30 days. Until such time, you can visit your local branch to fulfil your banking needs. As long as a replacement card hasn’t been issued yet, you can contact us to have your old card re-instated."
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_loan:
+  - text: "Loan up to 90%  of property value,
+           Loan amount from 10L-5Cr,
+           Available at fixed rates."
+  utter_history:
+  - text: "Please visit http://127.0.0.1:8000/history/"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_w_or_d:
+  - text: "Do want to Deposit or Withdraw ?"
+    buttons:
+    - title: "Deposit"
+      payload: "Deposit"
+    - title: "Withdraw"
+      payload: "Withdraw"
+
+  utter_menu:
+    - text: "Hello how may i be at your service {name} ?"
+      buttons:
+        - title: "Make A Transaction "
+          payload: "make transaction"
+        - title: "Account Details"
+          payload: "account details"
+        - title: "Quick Balance"
+          payload: "current balance"
+
+actions:
+  - action_greet
+  - action_restart
+  - action_goodbye
+  - action_affirm
+  - action_deny
+  - action_bot_challenge
+  - action_make_transaction
+  - action_account_detail
+  - action_show_balance
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
