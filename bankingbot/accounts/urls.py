@@ -12,6 +12,7 @@ urlpatterns = [
     path("make-transaction/", views.user_transaction, name="user_transaction"),
     path("api/user-profile", views.user_profile, name="user_profile"),
     path("home/", views.home, name="home"),
-    path("", views.user_login, name="user_login")
+    path("", views.user_login, name="user_login"),
+    path("verify/", views.verify, name="verify"),
 
 ]

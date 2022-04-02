@@ -8,29 +8,34 @@ from django.contrib import messages  # import messages
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import time, json
+import email.message
+import smtplib
+
 
 def home(request):
     if request.user.is_authenticated:
-
         return render(request=request, template_name="welcome.html")
 
     return redirect('/login')
 
 def user_registration(request):
+    msg = ""
     if request.user.is_authenticated:
         return redirect('/history')
 
     if request.method == "POST":
+        
         form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
             time.sleep(1)
             login(request, user)
             messages.success(request, "Registration successful.")
-            return redirect("/history")
-        messages.error(request, form.errors)
+            return redirect("/login")
+        else:
+            msg = form.errors
     form = NewUserForm
-    return render(request=request, template_name="registration.html", context={"registration_form": form})
+    return render(request=request, template_name="registration.html", context={"registration_form": form, "msg":msg})
 
 
 class AccountTransactionsTable(tables.Table):
@@ -65,12 +70,40 @@ def chatbot_page(request):
     else:
         return redirect('/login')
 
+def verify(request):
+    login_msg = "Not Authenticated user"
+    if request.user.is_authenticated:
+        s = smtplib.SMTP('smtp.gmail.com', 587)
+        s.starttls()
+        msg = email.message.Message()
+        msg['Subject'] = 'Chatbot Verified Link'
+        msg['From'] = 'email here'
+        msg['To'] = request.user.email
+        msg.add_header('Content-Type','text/html')
+        msg.set_payload("""
+        This is the verified message from Rasa-ChatBot for Authorized status. Click the below link 
+        to visit your account.<br>
+        http://127.0.0.1:8000/home/.
+        This message is from CHATBOT-RASA powered by Musa.<br>
+        For more Information contact at abc@gmail.com
+        """)
+        s.login("email here", "password here")
+        s.sendmail(msg['From'], [msg['To']], msg.as_string())
+        s.quit()
+
+        login_msg = """
+            This message is only for registered user.
+            Varification Email sent to your register email account. 
+        """
+    return render(request=request, template_name="verify.html", context={"login_msg": login_msg})
 
 def user_login(request):
+    msg = ""
     if request.user.is_authenticated:
-        return redirect('/home')
+        return redirect('/verify')
 
     if request.method == "POST":
+        
         form = OldUserForm(request=request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -79,15 +112,15 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}")
-                return redirect('/home')
+                return redirect('/verify')
             else:
-                messages.error(request, "Invalid username or password.")
+               msg = form.errors
             messages.success(request, "Registration successful.")
             return redirect("/login")
+        msg = form.errors
 
-        messages.error(request, form.errors)
     form = OldUserForm
-    return render(request=request, template_name="login.html", context={"login_form": form})
+    return render(request=request, template_name="login.html", context={"login_form": form, "msg":msg})
 
 
 def user_transaction(request):
@@ -98,7 +131,7 @@ def user_transaction(request):
                 amount = form.cleaned_data['amount']
                 transaction_type = form.cleaned_data['transaction_type']
                 source = form.cleaned_data['source']
-                print(amount)
+
                 b_user = BankUser.objects.get(user=request.user)
                 if transaction_type == 'Withdraw':
                     if b_user.current_balance >= amount:
