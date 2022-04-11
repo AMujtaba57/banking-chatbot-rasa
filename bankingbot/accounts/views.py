@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 import time, json
 import email.message
 import smtplib
+import random
 
 
 def home(request):
@@ -77,7 +78,7 @@ def verify(request):
         s.starttls()
         msg = email.message.Message()
         msg['Subject'] = 'Chatbot Verified Link'
-        msg['From'] = 'email here'
+        msg['From'] = 'Verification email'
         msg['To'] = request.user.email
         msg.add_header('Content-Type','text/html')
         msg.set_payload("""
@@ -87,7 +88,7 @@ def verify(request):
         This message is from CHATBOT-RASA powered by Musa.<br>
         For more Information contact at abc@gmail.com
         """)
-        s.login("email here", "password here")
+        s.login("", "")
         s.sendmail(msg['From'], [msg['To']], msg.as_string())
         s.quit()
 
@@ -139,8 +140,8 @@ def user_transaction(request):
                         b_user.save()
                         form.save(user=request.user)
                         if source == 'Other':
-
-                            return JsonResponse(json.dumps({'Status': 1, 'Message': 'Amount Withdrawn'}), safe=False)
+                            rand_nmbr = random.randint(1000, 9999)
+                            return JsonResponse(json.dumps({'Status': 1, 'Message': f'Amount can be Withdrawn from any nearest bank/atm using this `{rand_nmbr}` otp'}), safe=False)
                         else:
                             return redirect("/history")
                     else:
@@ -155,7 +156,8 @@ def user_transaction(request):
 
                     form.save(user=request.user)
                     if source == 'Other':
-                        return JsonResponse(json.dumps({'Status': 1, 'Message': 'Amount Deposited'}), safe=False)
+                        rand_nmbr = random.randint(1000, 9999)
+                        return JsonResponse(json.dumps({'Status': 1, 'Message': f'Amount can be Deposit using this `{rand_nmbr}` otp in any nearest bank/atm'}), safe=False)
                     else:
                         return redirect("/history")
 
