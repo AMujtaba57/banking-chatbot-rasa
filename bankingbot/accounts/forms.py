@@ -58,7 +58,7 @@ class OldUserForm(AuthenticationForm):
 
 class MakeTransactionForm(forms.Form):
     amount = forms.FloatField(required=True)
-    transaction_type = forms.ChoiceField(required=True, choices=[('Deposit', 'Deposit'), ('Withdraw', 'Withdrawal')])
+    transaction_type = forms.ChoiceField(required=True, choices=[('Deposit', 'Deposit'), ('Withdraw', 'Withdrawal'), ('Transfer', 'Transfer')])
     source = forms.ChoiceField(required=True, choices=[('Web', 'Web'),('Other', 'Other')], disabled=False)
 
     class Meta:
