@@ -158,11 +158,22 @@ def user_transaction(request):
                     if b_user.current_balance >= _amount:
                         if source == 'Other':
                             secret_code = random.randint(1000, 9999)
-                            # message = client.messages.create(
-                            # from_='+18703318966',
-                            # body =f'your otp from rasa-chatbot: {secret_code}',
-                            # to ='+923107731092'
-                            # )
+                            s = smtplib.SMTP('smtp.gmail.com', 587)
+                            s.starttls()
+                            msg = email.message.Message()
+                            msg['Subject'] = 'Chatbot Verified Link'
+                            msg['From'] = 'Verification email'
+                            msg['To'] = request.user.email
+                            msg.add_header('Content-Type', 'text/html')
+                            msg.set_payload(f"""
+                                                Your verification pin is {secret_code}
+                                                This is the verified message from Rasa-ChatBot for Authorized status. 
+                                                This message is from CHATBOT-RASA powered by Musa.<br>
+                                                For more Information contact at abc@gmail.com
+                                                """)
+                            s.login("mujtaba.arhamsoft@gmail.com", "mujtaba@arhamSoft057")
+                            s.sendmail(msg['From'], [msg['To']], msg.as_string())
+                            s.quit()
                             return JsonResponse(json.dumps({'Status': 1,
                                                             'Message': f'Complete your transaction through this link: '
                                                                        f'http://127.0.0.1:8000/withdraw_verification/'}),
@@ -178,21 +189,34 @@ def user_transaction(request):
                 elif transaction_type == 'Deposit':
                     if source == 'Other':
                         secret_code = random.randint(1000, 9999)
+                        s = smtplib.SMTP('smtp.gmail.com', 587)
+                        s.starttls()
+                        msg = email.message.Message()
+                        msg['Subject'] = 'Chatbot Verified Link'
+                        msg['From'] = 'Verification email'
+                        msg['To'] = request.user.email
+                        msg.add_header('Content-Type', 'text/html')
+                        msg.set_payload(f"""
+                                            Your verification pin is {secret_code}
+                                            This is the verified message from Rasa-ChatBot for Authorized status. 
+                                            This message is from CHATBOT-RASA powered by Musa.<br>
+                                            For more Information contact at abc@gmail.com
+                                            """)
+                        s.login("mujtaba.arhamsoft@gmail.com", "mujtaba@arhamSoft057")
+                        s.sendmail(msg['From'], [msg['To']], msg.as_string())
+                        s.quit()
                         return JsonResponse(json.dumps({'Status': 1,
                                                         'Message': f'Complete your transaction through this link: '
                                                                    f'http://127.0.0.1:8000/deposit_verification/'}),
                                             safe=False)
                     else:
                         return redirect("/history")
+                elif transaction_type == 'Transfer':
+                    if source == 'Other':
+                        return JsonResponse(json.dumps({'Status': 1,
+                                                        'Message': f'transfer money'}),
+                                            safe=False)
 
-                # else:
-                #     if source == 'Other':
-                #         secret_code = random.randint(1000, 9999)
-                #         return JsonResponse(json.dumps({'Status': 1,
-                #                                         'Message': "transfer money"}),
-                #                             safe=False)
-                #     else:
-                #         return redirect("/history")
                 messages.error(request, form.data)
 
             messages.error(request, form.errors)
@@ -215,7 +239,6 @@ def user_profile(request):
 
 
 def deposit_verification(request):
-    print(secret_code)
     msg = """
     Enter 4-digit transaction verification password
     """
@@ -232,7 +255,7 @@ def post_deposit_verification(request):
                 b_user.current_balance = b_user.current_balance + _amount
                 b_user.save()
                 form.save(user=request.user)
-                verify_msg = f"`{_amount}` Rupees deposit to `{b_user.account_number}` account number"
+                verify_msg = f"`{_amount}` Rupees deposit to `Name: {b_user}` & `Account #: {b_user.account_number}` account number."
                 secret_code = 0
             else:
                 verify_msg = "Incomplete Transaction. Go Back to home to complete transaction"
@@ -244,7 +267,6 @@ def post_deposit_verification(request):
 
 
 def withdraw_verification(request):
-    print(secret_code)
     msg = """
     Enter 4-digit transaction verification password
     """
@@ -259,7 +281,7 @@ def post_withdraw_verification(request):
             b_user = BankUser.objects.get(user=request.user)
             b_user.current_balance = b_user.current_balance - _amount
             b_user.save()
-            verify_msg = f"`{_amount}` Rupees withdraw from `{b_user.account_number}` account number"
+            verify_msg = f"`{_amount}` Rupees deposit to `Name: {b_user}` & `Account #: {b_user.account_number}` account number."
             secret_code = 0
         else:
             verify_msg = "Incomplete Transaction. Go Back to home to complete transaction"

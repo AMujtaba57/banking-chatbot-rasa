@@ -67,7 +67,7 @@ class ActionMakeTransaction(Action):
             return []
 
         data = f"csrfmiddlewaretoken={custom_data['csrfmw']}&amount={tracker.get_slot('amount-of-money').replace(',','')}&transaction_type={tracker.get_slot('transaction-type').capitalize()}&source=Other"
-        print(data)
+        print("data: ", data, tracker)
         x = requests.post(url, data=data, headers=headers)
         # try:
         dispatcher.utter_message(text=f"{json.loads(x.json())['Message']}")
