@@ -6,11 +6,16 @@ stories:
   steps:
   - intent: greet
   - action: action_greet
-`
+
 - story: transaction
   steps:
     - intent: make_transaction
     - action: action_make_transaction
+
+- story: tranfer money
+  steps:
+    - intent: tranfer_money
+    - action: action_transfer_money
 
 - story: show balance
   steps:

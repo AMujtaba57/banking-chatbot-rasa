@@ -81,6 +81,21 @@ nlu:
     - i want to make a transaction
     - i would like to make a transaction
 
+- intent: tranfer_money
+  examples: |
+    - i want to transfer money
+    - i want to [transfer](transaction-type) some funds
+    - i want to [transfer](transaction-type) [1000](amount-of-money) rs
+    - i want to [transfer](transaction-type) [113651](amount-of-money)
+    - i want to [transfer](transaction-type) [312](amount-of-money)
+    - [transfer](transaction-type)
+    - [1000](amount-of-money)
+    - [9](amount-of-money)
+    - [8356](amount-of-money)
+    - i want to send some money
+    - i want to transfer
+    - i would like to make a transfer
+
 - intent: bot_challenge
   examples: |
     - are you a bot?

@@ -16,19 +16,27 @@
 
     <div class="form-body without-side">
         <div class="row">
-            <div class="form-holder">
-                <div class="form-content">
-                    <div class="form-items">
-                        <h1>Log In</h1>
-                        <form method="POST">
-                            {% csrf_token %}
-                            {{ login_form|crispy }}
-                            <button class="btn btn-primary" type="submit">Login</button>
-                        </form><br>
-                        <p class="text-center">If you don't already have an account, <a href="/register">Register</a> instead.</p>
+            <div class="col-md-6">
+                <div class="form-holder">
+                    <div class="form-content" style="top:-100px; position:relative;">
+                        <div class="form-items">
+                            <h1>Log In</h1>
+                            <form method="POST">
+                                {% csrf_token %}
+                                {% if msg %}
+                                    <span style="color:red;">{{msg}}</span>
+                                {% endif %}
+                                {{ login_form|crispy }}
+                                <button class="btn btn-primary" type="submit">Login</button>
+                            </form><br>
+                            <p class="text-center">If you don't already have an account, <a href="/register">Register</a> instead.</p>
 
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-2" id="login_logo">
+                <img src="\static\assets\MCS.png">
             </div>
         </div>
     </div>

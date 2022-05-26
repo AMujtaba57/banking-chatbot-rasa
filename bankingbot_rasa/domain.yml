@@ -17,6 +17,7 @@ intents:
   - card_lost
   - city_cardlost
   - time_cardlost
+  - tranfer_money
 
 entities:
   - amount-of-money
@@ -80,12 +81,14 @@ responses:
   - text: "I am a bot, powered by Rasa."
 
   utter_w_or_d:
-  - text: "Do want to Deposit or Withdraw ?"
+  - text: "Do want to Deposit, Withdraw or Transfer?"
     buttons:
     - title: "Deposit"
       payload: "Deposit"
     - title: "Withdraw"
       payload: "Withdraw"
+    - title: "transfer"
+      payload: "transfer"
 
   utter_menu:
     - text: "Hello how may i be at your service {name} ?"
@@ -96,6 +99,8 @@ responses:
           payload: "account details"
         - title: "Quick Balance"
           payload: "current balance"
+        - title: "Transfer Money"
+          payload: "transfer"
 
 actions:
   - action_greet
@@ -107,6 +112,7 @@ actions:
   - action_make_transaction
   - action_account_detail
   - action_show_balance
+  - action_transfer_money
 
 session_config:
   session_expiration_time: 60

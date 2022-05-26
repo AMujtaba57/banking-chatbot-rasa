@@ -53,6 +53,10 @@ html, body {
     bottom: initial;
 }
 
+#login_logo > img{
+    width: 500px;
+
+}
 .website-logo img {
     width: 100px;
 }
@@ -260,7 +264,10 @@ html, body {
         position: fixed;
     }
 }
-
+.without-side > .logo{
+    width: 100px;
+    height: 100px;
+}
 .form-holder {
     margin-left: 550px;
     width: 100%;

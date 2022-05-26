@@ -13,6 +13,10 @@ class BankUser(models.Model):
     account_type = models.CharField(max_length=24)
     current_balance = models.FloatField()
     # USERNAME_FIELD = 'username'
+    mobile_number = models.TextField()
+
+    def __str__(self):
+        return self.full_name 
 
 
 class AccountTransactions(models.Model):
@@ -20,3 +24,6 @@ class AccountTransactions(models.Model):
     date_time = models.DateTimeField(null=False)
     amount = models.FloatField()
     transaction_type = models.CharField(max_length=24)
+
+    def __str__(self):
+        return f"{self.user}"

@@ -14,6 +14,7 @@ class NewUserForm(UserCreationForm):
     postal_code = forms.IntegerField(required=True)
     account_type = forms.ChoiceField(required=True, choices=[('C', 'Current'), ('S', 'Saving')])
     full_name = forms.CharField(required=True)
+    mobile_number = forms.CharField(required=True)
 
     class Meta:
         model = User
@@ -34,7 +35,8 @@ class NewUserForm(UserCreationForm):
                 postal_code=self.cleaned_data['postal_code'],
                 account_type=self.cleaned_data['account_type'],
                 current_balance=float(self.cleaned_data['initial_balance']),
-                account_number=uuid.uuid4()
+                account_number=uuid.uuid4(),
+                mobile_number=self.cleaned_data['mobile_number']
             )
             AccountTransactions.objects.create(
                 user=user,
@@ -50,16 +52,15 @@ class OldUserForm(AuthenticationForm):
     numeric = RegexValidator(r'^[0-9]{4}', 'Only digit characters.')
     username = forms.CharField(required=True)
     password = forms.PasswordInput()
-    otp = forms.IntegerField(validators=[RegexValidator(r'^[0-9]{4}', 'Only digit characters.')])
-
+    
     class Meta:
         model = User
-        fields = ("username", "email", "password1", "password2", "otp")
+        fields = ("username", "email", "password1", "password2")
 
 
 class MakeTransactionForm(forms.Form):
     amount = forms.FloatField(required=True)
-    transaction_type = forms.ChoiceField(required=True, choices=[('Deposit', 'Deposit'), ('Withdraw', 'Withdrawal')])
+    transaction_type = forms.ChoiceField(required=True, choices=[('Deposit', 'Deposit'), ('Withdraw', 'Withdrawal'), ('Transfer', 'Transfer')])
     source = forms.ChoiceField(required=True, choices=[('Web', 'Web'),('Other', 'Other')], disabled=False)
 
     class Meta:
