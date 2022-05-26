@@ -18,7 +18,9 @@ urlpatterns = [
     path("post_deposit_verification/", views.post_deposit_verification, name="post_deposit_verification"),
     path("withdraw_verification/", views.withdraw_verification, name="withdraw_verification"),
     path("post_withdraw_verification/", views.post_withdraw_verification, name="post_withdraw_verification"),
-
+    path("money_transfer/", views.money_transfer, name="money_transfer"),
+    path("post_money_transfer/", views.post_money_transfer, name="post_money_transfer"),
+    # path("transfer_verification/", views.transfer_verification, name="transfer_verification"),
 
 
 ]

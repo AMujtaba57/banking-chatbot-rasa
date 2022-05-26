@@ -14,6 +14,7 @@ class NewUserForm(UserCreationForm):
     postal_code = forms.IntegerField(required=True)
     account_type = forms.ChoiceField(required=True, choices=[('C', 'Current'), ('S', 'Saving')])
     full_name = forms.CharField(required=True)
+    mobile_number = forms.CharField(required=True)
 
     class Meta:
         model = User
@@ -34,7 +35,8 @@ class NewUserForm(UserCreationForm):
                 postal_code=self.cleaned_data['postal_code'],
                 account_type=self.cleaned_data['account_type'],
                 current_balance=float(self.cleaned_data['initial_balance']),
-                account_number=uuid.uuid4()
+                account_number=uuid.uuid4(),
+                mobile_number=self.cleaned_data['mobile_number']
             )
             AccountTransactions.objects.create(
                 user=user,

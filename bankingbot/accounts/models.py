@@ -13,6 +13,7 @@ class BankUser(models.Model):
     account_type = models.CharField(max_length=24)
     current_balance = models.FloatField()
     # USERNAME_FIELD = 'username'
+    mobile_number = models.TextField()
 
     def __str__(self):
         return self.full_name 
@@ -25,4 +26,4 @@ class AccountTransactions(models.Model):
     transaction_type = models.CharField(max_length=24)
 
     def __str__(self):
-        return self.user 
+        return f"{self.user}"
